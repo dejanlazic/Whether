@@ -6,38 +6,33 @@ import javax.persistence.Id;
 
 @Entity
 public class Person {
+   @Id
+   @GeneratedValue
+   private Integer id;
+   private String firstName;
+   private String lastName;
 
-    @Id
-    @GeneratedValue
-    private Integer id;
+   public Integer getId() {
+      return id;
+   }
 
-    private String firstName;
+   public void setId(Integer id) {
+      this.id = id;
+   }
 
-    private String lastName;
+   public String getFirstName() {
+      return firstName;
+   }
 
+   public void setFirstName(String firstName) {
+      this.firstName = firstName;
+   }
 
-    public Integer getId() {
-        return id;
-    }
+   public String getLastName() {
+      return lastName;
+   }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
+   }
 }
