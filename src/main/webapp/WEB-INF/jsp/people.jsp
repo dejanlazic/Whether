@@ -47,7 +47,10 @@
                <form:label path="lastName">Last Name</form:label>
                <form:input path="lastName" />
                <form:label path="lastName">City</form:label>
+               <form:input path="lastName" />
+               <form:label path="lastName">City 2</form:label>
                <form:input path="lastName" />               
+                              
                <input type="submit" value="Add Person" class="btn" />
             </form:form>
 
