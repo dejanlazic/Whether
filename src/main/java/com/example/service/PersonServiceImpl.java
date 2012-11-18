@@ -11,17 +11,17 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import java.util.List;
 
-@Service
+//@Service
 public class PersonServiceImpl implements PersonService {
-   @PersistenceContext
+//   @PersistenceContext
    EntityManager em;
 
-   @Transactional
+//   @Transactional
    public void addPerson(Person person) {
       em.persist(person);
    }
 
-   @Transactional
+//   @Transactional
    public List<Person> listPeople() {
       CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
       c.from(Person.class);
@@ -29,7 +29,7 @@ public class PersonServiceImpl implements PersonService {
       return em.createQuery(c).getResultList();
    }
 
-   @Transactional
+//   @Transactional
    public void removePerson(Integer id) {
       Person person = em.find(Person.class, id);
       if (null != person) {

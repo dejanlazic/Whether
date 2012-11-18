@@ -5,14 +5,15 @@
     xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     id="WebApp_ID" version="2.5">
-    <display-name>Spring-Hibernate-Template</display-name>
+    
+    <display-name>Whether?</display-name>
  
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>spring</servlet-name>
+        <servlet-name>SpringServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -22,7 +23,7 @@
     </servlet>
     
     <servlet-mapping>
-        <servlet-name>spring</servlet-name>
-        <url-pattern>/people/*</url-pattern>
+        <servlet-name>SpringServlet</servlet-name>
+        <url-pattern>/whether/*</url-pattern>
     </servlet-mapping>
 </web-app>
