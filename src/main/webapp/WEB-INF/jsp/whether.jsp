@@ -14,23 +14,11 @@
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
-<!--
-      IMPORTANT:
-      This is Heroku specific styling. Remove to customize.
-    -->
 <link href="http://heroku.github.com/template-app-bootstrap/heroku.css" rel="stylesheet">
-<!-- /// -->
 
 </head>
 
 <body>
-   <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-         <div class="container">
-         </div>
-      </div>
-   </div>
-
    <div class="container">
       <div class="row">
          <div class="span8 offset2">
@@ -44,6 +32,52 @@
                               
                <input type="submit" value="Submit" class="btn" />
             </form:form>
+            
+            <c:if test="${!empty dataList}">
+               <c:forEach var="weatherData" items="${dataList}" varStatus="counter">
+                  <c:choose>
+                     <c:when test="${counter.first}">
+                        <table class="table table-bordered table-striped">
+                           <thead>
+                              <tr>
+                                 <th>Current conditions</th>
+                                 <th>&nbsp;</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>Pressure</td>
+                                 <td><c:out value="${weatherData.pressure}"/></td>
+                              </tr>
+                              <tr>
+                                 <td>Temperature (C)</td>
+                                 <td><c:out value="${weatherData.tempC}"/></td>
+                              </tr>
+                              <tr>
+                                 <td>Temperature (F)</td>
+                                 <td><c:out value="${weatherData.tempF}"/></td>
+                              </tr>                              
+                              <tr>
+                                 <td>Visibility</td>
+                                 <td><c:out value="${weatherData.visibility}"/></td>
+                              </tr>                              
+                              <tr>
+                                 <td>Humidity</td>
+                                 <td><c:out value="${weatherData.humidity}"/></td>
+                              </tr>                              
+                              <tr>
+                                 <td>Description</td>
+                                 <td><b></b><c:out value="${weatherData.weatherDesc}"/></b></td>
+                              </tr>                                                                                          
+                           </tbody>
+                        </table>                        
+                     </c:when>
+                     <c:otherwise>
+                        <c:out value="${weatherData.date}" /> <br />
+                     </c:otherwise>
+                  </c:choose>
+               </c:forEach>               
+            </c:if>            
          </div>
       </div>
    </div>
