@@ -30,7 +30,9 @@
                <form:label path="name">City</form:label>
                <form:input path="name" />
                <form:label path="days">Days</form:label>
-               <form:input path="days" />
+               <form:select path="days">
+                 <form:options items="${daysList}" />
+               </form:select>               
                               
                <input type="submit" value="Submit" class="btn" />
             </form:form>

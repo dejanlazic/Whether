@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.model.City;
 import com.example.service.WhetherService;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,13 @@ public class WhetherController {
    @RequestMapping("/")
    public String startup(Map<String, Object> map) {
       map.put("city", new City());
+      Map<String, String> days = new LinkedHashMap<String, String>();
+      days.put("1", "1");
+      days.put("2", "2");
+      days.put("3", "3");
+      days.put("4", "4");
+      days.put("5", "5");
+      map.put("daysList", days);
       map.put("dataList", dataList);
       
       return "whether";
