@@ -17,7 +17,7 @@ import com.example.util.JsonParser;
 
 @Service
 public class WhetherServiceImpl implements WhetherService {
-   public List<Map<String,String>> retrieveData(String city) {
+   public List<Map<String,String>> retrieveData(String city, String days) {
       if(city==null || city.equals("")) return null;
       
       List<Map<String, String>> dataList = null;
@@ -29,7 +29,7 @@ public class WhetherServiceImpl implements WhetherService {
       
       try {
          URL url = new URL(
-                  "http://free.worldweatheronline.com/feed/weather.ashx?q=" + city + "&format=json&num_of_days=2&key=79e067ac37075719121310");
+                  "http://free.worldweatheronline.com/feed/weather.ashx?q=" + city + "&format=json&num_of_days=" + days + "&key=79e067ac37075719121310");
          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
          conn.setRequestMethod("GET");
          conn.setRequestProperty("Accept", "application/json");

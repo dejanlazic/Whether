@@ -1,16 +1,8 @@
 package com.example.model;
 
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.Id;
-
-//@Entity
-public class City {
-//   @Id
-//   @GeneratedValue
-//   private Integer id;
-   
+public class City {  
    private String name;
+   private String days;
 
    public String getName() {
       return name;
@@ -19,4 +11,12 @@ public class City {
    public void setName(String name) {
       this.name = name;
    }
+
+   public String getDays() {
+      return days;
+   }
+
+   public void setDays(String days) {
+      this.days = days;
+   }  
 }

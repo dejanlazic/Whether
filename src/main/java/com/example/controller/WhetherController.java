@@ -30,8 +30,7 @@ public class WhetherController {
 
    @RequestMapping(value = "/retrieve", method = RequestMethod.GET)
    public String retrieveData(@ModelAttribute("city") City city, BindingResult result) {
-      System.out.println(whetherService.retrieveData(city.getName()));
-      dataList = whetherService.retrieveData(city.getName());
+      dataList = whetherService.retrieveData(city.getName(), city.getDays());
       
       return "redirect:/whether/";
    }

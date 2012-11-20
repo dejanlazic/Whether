@@ -29,6 +29,8 @@
             <form:form method="get" action="retrieve" commandName="city" class="form-vertical">
                <form:label path="name">City</form:label>
                <form:input path="name" />
+               <form:label path="days">Days</form:label>
+               <form:input path="days" />
                               
                <input type="submit" value="Submit" class="btn" />
             </form:form>
