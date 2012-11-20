@@ -67,13 +67,50 @@
                               </tr>                              
                               <tr>
                                  <td>Description</td>
-                                 <td><b></b><c:out value="${weatherData.weatherDesc}"/></b></td>
+                                 <td><font color="#FF0000"><c:out value="${weatherData.weatherDesc}"/></font></td>
                               </tr>                                                                                          
                            </tbody>
                         </table>                        
                      </c:when>
                      <c:otherwise>
-                        <c:out value="${weatherData.date}" /> <br />
+                        <table class="table table-bordered table-striped">
+                           <thead>
+                              <tr>
+                                 <th>Date</th>
+                                 <th><c:out value="${weatherData.date}"/></th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>Temperature min. (C)</td>
+                                 <td><c:out value="${weatherData.tempMinC}"/></td>
+                              </tr>
+                              <tr>
+                                 <td>Temperature max. (C)</td>
+                                 <td><c:out value="${weatherData.tempMaxC}"/></td>
+                              </tr>                              
+                              <tr>
+                                 <td>Temperature min. (F)</td>
+                                 <td><c:out value="${weatherData.tempMinF}"/></td>
+                              </tr>
+                              <tr>
+                                 <td>Temperature max. (F)</td>
+                                 <td><c:out value="${weatherData.tempMaxF}"/></td>
+                              </tr>                              
+                              <tr>
+                                 <td>Wind speed (Kmph)</td>
+                                 <td><c:out value="${weatherData.windspeedKmph}"/></td>
+                              </tr>
+                              <tr>
+                                 <td>Wind speed (Mph)</td>
+                                 <td><c:out value="${weatherData.windspeedMiles}"/></td>
+                              </tr>                                                                                          
+                              <tr>
+                                 <td>Description</td>
+                                 <td><font color="#FF0000"><c:out value="${weatherData.weatherDesc}"/></font></td>
+                              </tr>                                                                                          
+                           </tbody>
+                        </table>
                      </c:otherwise>
                   </c:choose>
                </c:forEach>               
