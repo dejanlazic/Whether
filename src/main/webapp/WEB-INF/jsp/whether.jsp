@@ -40,6 +40,8 @@
             <h3><c:out value="${city.name}"/></h3>
             
             <c:if test="${!empty dataList}">
+               <h5>Weather</h5>
+                        
                <c:forEach var="weatherData" items="${dataList}" varStatus="counter">
                   <c:choose>
                      <c:when test="${counter.first}">
@@ -120,7 +122,33 @@
                      </c:otherwise>
                   </c:choose>
                </c:forEach>               
-            </c:if>            
+            </c:if>
+            
+            
+            <c:if test="${!empty geoDataList}">
+               <h5>Geo</h5>
+                        
+               <table class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                        <th style="width: 25%;">Name</th>
+                        <th style="width: 25%;">Country</th>
+                        <th style="width: 25%;">Latitude</th>
+                        <th style="width: 25%;">Longitude</th>
+                     </tr>
+                  </thead>
+                  <tbody>                                    
+                     <c:forEach var="geoData" items="${geoDataList}">               
+                        <tr>
+                           <td><c:out value="${geoData.name}"/></td>
+                           <td><c:out value="${geoData.country}"/></td>
+                           <td><c:out value="${geoData.latitude}"/></td>
+                           <td><c:out value="${geoData.longitude}"/></td>
+                        </tr>
+                     </c:forEach>
+                  </tbody>
+               </table>                        
+            </c:if>
          </div>
       </div>
    </div>

@@ -19,8 +19,9 @@ public class WhetherController {
    @Autowired
    private WhetherService whetherService;
    
-   private List<Map<String,String>> dataList = null;
-   City city = new City();
+   private List<Map<String, String>> dataList = null;
+   private List<Map<String, String>> geoDataList = null;
+   private City city = new City();
 
    @RequestMapping("/")
    public String startup(Map<String, Object> map) {
@@ -33,14 +34,17 @@ public class WhetherController {
       days.put("5", "5");
       map.put("daysList", days);
       map.put("dataList", dataList);
+      map.put("geoDataList", geoDataList);
       
       return "whether";
    }
 
    @RequestMapping(value = "/retrieve", method = RequestMethod.GET)
    public String retrieveData(@ModelAttribute("city") City city, BindingResult result) {
-      dataList = whetherService.retrieveData(city.getName(), city.getDays());
       this.city = city;
+      
+      dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
+      geoDataList = whetherService.retrieveGeoData(city.getName());
       
       return "redirect:/whether/";
    }
