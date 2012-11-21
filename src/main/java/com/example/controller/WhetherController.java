@@ -20,10 +20,11 @@ public class WhetherController {
    private WhetherService whetherService;
    
    private List<Map<String,String>> dataList = null;
+   City city = new City();
 
    @RequestMapping("/")
    public String startup(Map<String, Object> map) {
-      map.put("city", new City());
+      map.put("city", city);
       Map<String, String> days = new LinkedHashMap<String, String>();
       days.put("1", "1");
       days.put("2", "2");
@@ -39,6 +40,7 @@ public class WhetherController {
    @RequestMapping(value = "/retrieve", method = RequestMethod.GET)
    public String retrieveData(@ModelAttribute("city") City city, BindingResult result) {
       dataList = whetherService.retrieveData(city.getName(), city.getDays());
+      this.city = city;
       
       return "redirect:/whether/";
    }

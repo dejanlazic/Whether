@@ -37,6 +37,8 @@
                <input type="submit" value="Submit" class="btn" />
             </form:form>
             
+            <h3><c:out value="${city.name}"/></h3>
+            
             <c:if test="${!empty dataList}">
                <c:forEach var="weatherData" items="${dataList}" varStatus="counter">
                   <c:choose>
@@ -44,8 +46,8 @@
                         <table class="table table-bordered table-striped">
                            <thead>
                               <tr>
-                                 <th>Current conditions</th>
-                                 <th>&nbsp;</th>
+                                 <th style="width: 50%;">Current conditions</th>
+                                 <th style="width: 50%;">&nbsp;</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -80,8 +82,8 @@
                         <table class="table table-bordered table-striped">
                            <thead>
                               <tr>
-                                 <th>Date</th>
-                                 <th><c:out value="${weatherData.date}"/></th>
+                                 <th style="width: 50%;">Date</th>
+                                 <th style="width: 50%;"><c:out value="${weatherData.date}"/></th>
                               </tr>
                            </thead>
                            <tbody>
