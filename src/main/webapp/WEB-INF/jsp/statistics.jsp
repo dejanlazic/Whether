@@ -23,23 +23,10 @@
       <div class="row">
          <div class="span8 offset2">
             <div class="page-header">
-               <h1>Whether?</h1>
+               <h1>Statistics</h1>
             </div>
             
-            <form:form method="get" action="retrieve" commandName="city" class="form-vertical">
-               <form:label path="name">City</form:label>
-               <form:input path="name" />
-               <form:label path="days">Days</form:label>
-               <form:select path="days">
-                 <form:options items="${daysList}" />
-               </form:select>               
-                              
-               <input type="submit" value="Submit" class="btn" />
-            </form:form>
-            
-            <a href="/whether/stats/" class="btn btn-primary">Statistics</a>
-            
-            <h3><c:out value="${city.name}"/></h3>
+            <a href="/whether/" class="btn btn-primary">Home</a>
             
             <c:if test="${!empty dataList}">
                <h5>Weather</h5>
@@ -125,31 +112,7 @@
                   </c:choose>
                </c:forEach>               
             </c:if>
-                        
-            <c:if test="${!empty geoDataList}">
-               <h5>Geo</h5>
-                        
-               <table class="table table-bordered table-striped">
-                  <thead>
-                     <tr>
-                        <th style="width: 25%;">Name</th>
-                        <th style="width: 25%;">Country</th>
-                        <th style="width: 25%;">Latitude</th>
-                        <th style="width: 25%;">Longitude</th>
-                     </tr>
-                  </thead>
-                  <tbody>                                    
-                     <c:forEach var="geoData" items="${geoDataList}">               
-                        <tr>
-                           <td><c:out value="${geoData.name}"/></td>
-                           <td><c:out value="${geoData.country}"/></td>
-                           <td><c:out value="${geoData.latitude}"/></td>
-                           <td><c:out value="${geoData.longitude}"/></td>
-                        </tr>
-                     </c:forEach>
-                  </tbody>
-               </table>                        
-            </c:if>
+            
          </div>
       </div>
    </div>

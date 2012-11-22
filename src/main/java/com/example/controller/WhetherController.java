@@ -43,16 +43,23 @@ public class WhetherController {
    public String retrieveData(@ModelAttribute("city") City city, BindingResult result) {
       this.city = city;
       
-      //dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
-      //geoDataList = whetherService.retrieveGeoData(city.getName());
+      dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
+      geoDataList = whetherService.retrieveGeoData(city.getName());
+      
+      whetherService.updateStatistics(city.getName());
       
       return "redirect:/whether/";
    }
 
    @RequestMapping(value = "/stats", method = RequestMethod.GET)
-   public String retrieveStatistics(BindingResult result) {
+   public String retrieveStatistics() {
+      List<City> cities = whetherService.retrieveStatistics();
       
+      // TEST
+      for(City c : cities) {
+         System.out.println(c);
+      }
       
-      return "redirect:/statistics/";
+      return "statistics";
    }
 }

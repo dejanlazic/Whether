@@ -23,8 +23,6 @@
 </head>
 
 <body>      
-   <a href="/whether/" class="btn btn-primary btn-large">Whether?</a>
-
    <c:redirect url="/whether/" />
    
    <script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
