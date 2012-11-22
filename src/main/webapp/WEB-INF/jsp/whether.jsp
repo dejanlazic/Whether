@@ -37,6 +37,8 @@
                <input type="submit" value="Submit" class="btn" />
             </form:form>
             
+            <a href="/stats/" class="btn btn-primary btn-large">Statistics</a>
+            
             <h3><c:out value="${city.name}"/></h3>
             
             <c:if test="${!empty dataList}">
@@ -123,8 +125,7 @@
                   </c:choose>
                </c:forEach>               
             </c:if>
-            
-            
+                        
             <c:if test="${!empty geoDataList}">
                <h5>Geo</h5>
                         
