@@ -15,14 +15,16 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class JsonParser {
-   public static final String JSON_TEST_RESULT = "{\"data\":{" 
+   public static final String JSON_WEATHER_DATA = "{\"data\":{" 
             + "\"current_condition\":[{\"cloudcover\":\"100\",\"humidity\":\"93\",\"observation_time\":\"06:23 PM\",\"precipMM\":\"0.0\",\"pressure\":\"1016\",\"temp_C\": \"9\",\"temp_F\": \"48\",\"visibility\":\"4\",\"weatherCode\": \"143\",\"weatherDesc\":[{\"value\":\"Mist\"}],\"winddir16Point\":\"N\",\"winddirDegree\":\"0\",\"windspeedKmph\":\"0\",\"windspeedMiles\":\"0\"}],"
             + "\"weather\":[{\"date\":\"2012-11-18\",\"tempMaxC\":\"11\",\"tempMaxF\":\"51\",\"tempMinC\":\"6\",\"tempMinF\":\"42\",\"weatherDesc\":[{\"value\":\"Overcast\"}],\"windspeedKmph\":\"5\",\"windspeedMiles\":\"3\"}"
             + ",{\"date\":\"2012-11-19\",\"tempMaxC\":\"10\",\"tempMaxF\":\"50\",\"tempMinC\":\"4\",\"tempMinF\":\"39\",\"weatherDesc\":[{\"value\":\"Partly Cloudy\"}],\"windspeedKmph\":\"12\",\"windspeedMiles\":\"7\"}]"
             + "}}";
    
-   public static List<Map<String,String>> parse(Reader reader) {
-      List<Map<String,String>> maps = new ArrayList<Map<String,String>>();
+   public static final String JSON_GEO_DATA = "{\"geonames\":[{\"countryName\":\"Croatia\",\"countryCode\":\"HR\",\"lng\":15.9779834747314,\"fcodeName\":\"capital of a political entity\",\"lat\":45.8144436673781,\"population\":698966}]}";
+   
+   public static List<Map<String,String>> parseWeatherData(Reader reader) {
+      List<Map<String, String>> maps = new ArrayList<Map<String, String>>();
       
       JSONParser parser = new JSONParser();      
       try {
@@ -96,7 +98,37 @@ public class JsonParser {
       return maps;
    }
    
-   public static void main(String[] args) {
-//      parse(JSON);
+   public static Map<String,String> parseGeoData(Reader reader) {
+      Map<String, String> geoData = new HashMap<String, String>();
+      
+      JSONParser parser = new JSONParser();      
+      try {
+         JSONObject jsonObject = (JSONObject) parser.parse(reader);
+         System.out.println(jsonObject);
+
+         JSONArray jsonGeonamesArr = (JSONArray) jsonObject.get("geonames");
+         System.out.println(jsonGeonamesArr);
+
+         JSONObject jsonGeonames = (JSONObject) jsonGeonamesArr.get(0);
+         System.out.println(jsonGeonames);
+
+         geoData.put("countryName", (String) jsonGeonames.get("countryName"));
+         geoData.put("countryCode", (String) jsonGeonames.get("countryCode"));
+         geoData.put("fcodeName", (String) jsonGeonames.get("fcodeName"));
+         geoData.put("longitude", jsonGeonames.get("lng").toString());
+         geoData.put("latitude", jsonGeonames.get("lat").toString());
+         geoData.put("population", jsonGeonames.get("population").toString());
+         
+//         for (Entry<String, String> entry : geoData.entrySet()) {
+//            System.out.println(entry.getKey() + ": " + entry.getValue());
+//         }
+//         System.out.println("---");
+      } catch (IOException e) {
+         System.out.println(e);
+      } catch (ParseException e) {
+         System.out.println(e);
+      }
+      
+      return geoData;
    }
 }

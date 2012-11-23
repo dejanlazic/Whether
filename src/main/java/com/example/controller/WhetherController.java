@@ -20,7 +20,7 @@ public class WhetherController {
    private WhetherService whetherService;
    
    private List<Map<String, String>> dataList = null;
-   private List<Map<String, String>> geoDataList = null;
+   private Map<String, String> geoDataMap = null;
    private City city = new City();
 
    @RequestMapping("/")
@@ -34,7 +34,7 @@ public class WhetherController {
       days.put("5", "5");
       map.put("daysList", days);
       map.put("dataList", dataList);
-      map.put("geoDataList", geoDataList);
+      map.put("geoDataMap", geoDataMap);
       
       return "whether";
    }
@@ -43,10 +43,10 @@ public class WhetherController {
    public String retrieveData(@ModelAttribute("city") City city, BindingResult result) {
       this.city = city;
       
-      dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
-      geoDataList = whetherService.retrieveGeoData(city.getName());
+      //dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
+      geoDataMap = whetherService.retrieveGeoData(city.getName());
       
-      whetherService.updateStatistics(city.getName());
+      //whetherService.updateStatistics(city.getName());
       
       return "redirect:/whether/";
    }

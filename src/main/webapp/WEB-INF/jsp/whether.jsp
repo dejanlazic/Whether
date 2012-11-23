@@ -26,6 +26,8 @@
                <h1>Whether?</h1>
             </div>
             
+            <!-- INPUT FORM -->
+            
             <form:form method="get" action="retrieve" commandName="city" class="form-vertical">
                <form:label path="name">City</form:label>
                <form:input path="name" />
@@ -39,7 +41,42 @@
             
             <a href="/whether/stats/" class="btn btn-primary">Statistics</a>
             
+            <!-- OUTPUT DATA -->
+            
             <h3><c:out value="${city.name}"/></h3>
+
+
+            <c:if test="${!empty geoDataMap}">
+               <h5>Geo</h5>
+                        
+               <table class="table table-bordered table-striped">
+                  <tr>
+                     <th>Country name</th>
+                     <td><c:out value="${geoDataMap.countryName}"/></td>
+                  </tr>
+                  <tr>
+                     <th>Country code</th>
+                     <td><c:out value="${geoDataMap.countryCode}"/></td>
+                  </tr>
+                  <tr>
+                     <th>Description</th>
+                     <td><c:out value="${geoDataMap.fcodeName}"/></td>
+                  </tr>
+                  <tr>
+                     <th>Longitude</th>
+                     <td><c:out value="${geoDataMap.longitude}"/></td>
+                  </tr>
+                  <tr>
+                     <th>Latitude</th>
+                     <td><c:out value="${geoDataMap.latitude}"/></td>
+                  </tr>
+                  <tr>
+                     <th>Population</th>
+                     <td><c:out value="${geoDataMap.population}"/></td>
+                  </tr>                                                                                          
+               </table>                        
+            </c:if>
+            
             
             <c:if test="${!empty dataList}">
                <h5>Weather</h5>
@@ -124,32 +161,7 @@
                      </c:otherwise>
                   </c:choose>
                </c:forEach>               
-            </c:if>
-                        
-            <c:if test="${!empty geoDataList}">
-               <h5>Geo</h5>
-                        
-               <table class="table table-bordered table-striped">
-                  <thead>
-                     <tr>
-                        <th style="width: 25%;">Name</th>
-                        <th style="width: 25%;">Country</th>
-                        <th style="width: 25%;">Latitude</th>
-                        <th style="width: 25%;">Longitude</th>
-                     </tr>
-                  </thead>
-                  <tbody>                                    
-                     <c:forEach var="geoData" items="${geoDataList}">               
-                        <tr>
-                           <td><c:out value="${geoData.name}"/></td>
-                           <td><c:out value="${geoData.country}"/></td>
-                           <td><c:out value="${geoData.latitude}"/></td>
-                           <td><c:out value="${geoData.longitude}"/></td>
-                        </tr>
-                     </c:forEach>
-                  </tbody>
-               </table>                        
-            </c:if>
+            </c:if>                      
          </div>
       </div>
    </div>
