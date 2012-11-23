@@ -46,7 +46,7 @@ public class WhetherController {
       //dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
       geoDataMap = whetherService.retrieveGeoData(city.getName());
       
-      //whetherService.updateStatistics(city.getName());
+      whetherService.updateStatistics(city.getName());
       
       return "redirect:/whether/";
    }

@@ -33,8 +33,8 @@ public class WhetherServiceImpl implements WhetherService {
    @PersistenceContext
    EntityManager em;
 
-   public List<Map<String, String>> retrieveWeatherData(String city, String days) {
-      if (city == null || city.equals(""))
+   public List<Map<String, String>> retrieveWeatherData(String cityName, String days) {
+      if (cityName == null || cityName.equals(""))
          return null;
 
       List<Map<String, String>> dataList = null;
@@ -47,7 +47,7 @@ public class WhetherServiceImpl implements WhetherService {
       // TEST - END
 
       try {
-         URL url = new URL("http://free.worldweatheronline.com/feed/weather.ashx?q=" + city
+         URL url = new URL("http://free.worldweatheronline.com/feed/weather.ashx?q=" + cityName
                   + "&format=json&num_of_days=" + days + "&key=79e067ac37075719121310");
          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
          conn.setRequestMethod("GET");
@@ -69,8 +69,8 @@ public class WhetherServiceImpl implements WhetherService {
       return dataList;
    }
 
-   public Map<String, String> retrieveGeoData(String city) {
-      if (city == null || city.equals(""))
+   public Map<String, String> retrieveGeoData(String cityName) {
+      if (cityName == null || cityName.equals(""))
          return null;
 
       Map<String, String> geoDataMap = null;
@@ -78,41 +78,44 @@ public class WhetherServiceImpl implements WhetherService {
       // TEST - START
       geoDataMap = JsonParser.parseGeoData(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(
                JsonParser.JSON_GEO_DATA.getBytes()))));
-      //if (true) return geoDataMap;
+      // if (true) return geoDataMap;
       // TEST - END
 
-//      try {
-//         URL url = new URL("http://api.geonames.org/searchJSON?q=" + city + "&maxRows=1&username=delazic");
-//         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//         conn.setRequestMethod("GET");
-//         conn.setRequestProperty("Accept", "application/json");
-//
-//         if (conn.getResponseCode() != 200) {
-//            throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-//         }
-//
-//         // TEST: START
-//         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//         StringBuilder sb = new StringBuilder();         
-//         String read = br.readLine();
-//         while(read != null) {
-//             //System.out.println(read);
-//             sb.append(read);
-//             read = br.readLine();
-//         }
-//         System.out.println(sb.toString());         
-//         // TEST: END
-//         
-//         geoDataList = JsonParser.parse(new BufferedReader(new InputStreamReader((conn.getInputStream()))));
-//
-//         conn.disconnect();
-//      } catch (MalformedURLException e) {
-//         e.printStackTrace();
-//      } catch (IOException e) {
-//         e.printStackTrace();
-//      }
+      // try {
+      // URL url = new URL("http://api.geonames.org/searchJSON?q=" + city +
+      // "&maxRows=1&username=delazic");
+      // HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+      // conn.setRequestMethod("GET");
+      // conn.setRequestProperty("Accept", "application/json");
+      //
+      // if (conn.getResponseCode() != 200) {
+      // throw new RuntimeException("Failed : HTTP error code : " +
+      // conn.getResponseCode());
+      // }
+      //
+      // // TEST: START
+      // BufferedReader br = new BufferedReader(new
+      // InputStreamReader(conn.getInputStream()));
+      // StringBuilder sb = new StringBuilder();
+      // String read = br.readLine();
+      // while(read != null) {
+      // //System.out.println(read);
+      // sb.append(read);
+      // read = br.readLine();
+      // }
+      // System.out.println(sb.toString());
+      // // TEST: END
+      //
+      // geoDataList = JsonParser.parse(new BufferedReader(new
+      // InputStreamReader((conn.getInputStream()))));
+      //
+      // conn.disconnect();
+      // } catch (MalformedURLException e) {
+      // e.printStackTrace();
+      // } catch (IOException e) {
+      // e.printStackTrace();
+      // }
 
-      
       /* Calling WS using library */
       // WebService.setUserName("delazic");
       // ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
@@ -140,23 +143,26 @@ public class WhetherServiceImpl implements WhetherService {
    }
 
    @Transactional
-   public void updateStatistics(String city) {
+   public void updateStatistics(String cityName) {
       Query query = em.createQuery("FROM City c WHERE c.name = :name");
-      query.setParameter("name", city);
-      City c = null;
+      query.setParameter("name", cityName);
+      City city = null;
       try {
-         c = (City) query.getSingleResult();
+         city = (City) query.getSingleResult();
       } catch (NoResultException nre) {
          // Ignore this because as per your logic this is ok
-         System.out.println("No data in DB for " + city);
+         System.out.println("No data in DB for " + cityName);
       }
 
-      if(c != null) {
-         System.out.println("Found: " + c);
-
-         c.setCounter(c.getCounter() + 1);
-         //em.persist(city);
+      if (city == null) {
+         System.out.println("Not found: " + cityName);
+         city = new City(cityName);
+      } else {
+         System.out.println("Found: " + city);         
       }
+      
+      city.setCounter(city.getCounter() + 1);
+      em.persist(city);
    }
 
    @Transactional

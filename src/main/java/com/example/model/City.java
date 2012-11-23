@@ -19,7 +19,12 @@ public class City {
       super();
       counter = 0;
    }
-   
+
+   public City(String name) {
+      this();
+      this.name = name;
+   }
+
    public Integer getId() {
       return id;
    }
