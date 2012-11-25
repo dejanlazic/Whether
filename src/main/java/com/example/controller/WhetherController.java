@@ -43,7 +43,7 @@ public class WhetherController {
    public String retrieveData(@ModelAttribute("city") City city, BindingResult result) {
       this.city = city;
       
-      //dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
+      dataList = whetherService.retrieveWeatherData(city.getName(), city.getDays());
       geoDataMap = whetherService.retrieveGeoData(city.getName());
       
       whetherService.updateStatistics(city.getName());
@@ -52,13 +52,15 @@ public class WhetherController {
    }
 
    @RequestMapping(value = "/stats", method = RequestMethod.GET)
-   public String retrieveStatistics() {
+   public String retrieveStatistics(Map<String, Object> map) {
       List<City> cities = whetherService.retrieveStatistics();
       
       // TEST
       for(City c : cities) {
          System.out.println(c);
       }
+      
+      map.put("citiesList", cities);
       
       return "statistics";
    }

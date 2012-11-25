@@ -47,36 +47,35 @@
 
 
             <c:if test="${!empty geoDataMap}">
-               <h5>Geo</h5>
+               <h5>Geographic</h5>
                         
                <table class="table table-bordered table-striped">
                   <tr>
-                     <th>Country name</th>
-                     <td><c:out value="${geoDataMap.countryName}"/></td>
+                     <td style="width: 50%;">Country name</td>
+                     <td style="width: 50%;"><c:out value="${geoDataMap.countryName}"/></td>
                   </tr>
                   <tr>
-                     <th>Country code</th>
+                     <td>Country code</td>
                      <td><c:out value="${geoDataMap.countryCode}"/></td>
                   </tr>
                   <tr>
-                     <th>Description</th>
+                     <td>Description</td>
                      <td><c:out value="${geoDataMap.fcodeName}"/></td>
                   </tr>
                   <tr>
-                     <th>Longitude</th>
+                     <td>Longitude</td>
                      <td><c:out value="${geoDataMap.longitude}"/></td>
                   </tr>
                   <tr>
-                     <th>Latitude</th>
+                     <td>Latitude</td>
                      <td><c:out value="${geoDataMap.latitude}"/></td>
                   </tr>
                   <tr>
-                     <th>Population</th>
+                     <td>Population</td>
                      <td><c:out value="${geoDataMap.population}"/></td>
                   </tr>                                                                                          
                </table>                        
-            </c:if>
-            
+            </c:if>            
             
             <c:if test="${!empty dataList}">
                <h5>Weather</h5>

@@ -1,14 +1,14 @@
 package com.example.service;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+//import java.io.ByteArrayInputStream;
+//import java.io.InputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 //import org.geonames.Toponym;
 //import org.geonames.ToponymSearchCriteria;
@@ -47,6 +49,7 @@ public class WhetherServiceImpl implements WhetherService {
       // TEST - END
 
       try {
+         // Calling web service         
          URL url = new URL("http://free.worldweatheronline.com/feed/weather.ashx?q=" + cityName
                   + "&format=json&num_of_days=" + days + "&key=79e067ac37075719121310");
          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -76,45 +79,42 @@ public class WhetherServiceImpl implements WhetherService {
       Map<String, String> geoDataMap = null;
 
       // TEST - START
-      geoDataMap = JsonParser.parseGeoData(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(
-               JsonParser.JSON_GEO_DATA.getBytes()))));
+//      geoDataMap = JsonParser.parseGeoData(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(
+//               JsonParser.JSON_GEO_DATA.getBytes()))));
       // if (true) return geoDataMap;
       // TEST - END
 
-      // try {
-      // URL url = new URL("http://api.geonames.org/searchJSON?q=" + city +
-      // "&maxRows=1&username=delazic");
-      // HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      // conn.setRequestMethod("GET");
-      // conn.setRequestProperty("Accept", "application/json");
-      //
-      // if (conn.getResponseCode() != 200) {
-      // throw new RuntimeException("Failed : HTTP error code : " +
-      // conn.getResponseCode());
-      // }
-      //
-      // // TEST: START
-      // BufferedReader br = new BufferedReader(new
-      // InputStreamReader(conn.getInputStream()));
-      // StringBuilder sb = new StringBuilder();
-      // String read = br.readLine();
-      // while(read != null) {
-      // //System.out.println(read);
-      // sb.append(read);
-      // read = br.readLine();
-      // }
-      // System.out.println(sb.toString());
-      // // TEST: END
-      //
-      // geoDataList = JsonParser.parse(new BufferedReader(new
-      // InputStreamReader((conn.getInputStream()))));
-      //
-      // conn.disconnect();
-      // } catch (MalformedURLException e) {
-      // e.printStackTrace();
-      // } catch (IOException e) {
-      // e.printStackTrace();
-      // }
+      try {
+      // Calling web service
+         URL url = new URL("http://api.geonames.org/searchJSON?q=" + cityName + "&maxRows=1&username=delazic");
+         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+         conn.setRequestMethod("GET");
+         conn.setRequestProperty("Accept", "application/json");
+
+         if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+         }
+
+         // TEST: START
+//         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//         StringBuilder sb = new StringBuilder();
+//         String read = br.readLine();
+//         while (read != null) {
+//            // System.out.println(read);
+//            sb.append(read);
+//            read = br.readLine();
+//         }
+//         System.out.println(sb.toString());
+         // TEST: END
+
+         geoDataMap = JsonParser.parseGeoData(new BufferedReader(new InputStreamReader((conn.getInputStream()))));
+
+         conn.disconnect();
+      } catch (MalformedURLException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
 
       /* Calling WS using library */
       // WebService.setUserName("delazic");
@@ -167,9 +167,14 @@ public class WhetherServiceImpl implements WhetherService {
 
    @Transactional
    public List<City> retrieveStatistics() {
-      CriteriaQuery<City> c = em.getCriteriaBuilder().createQuery(City.class);
-      c.from(City.class);
-      // c.orderBy(em.getCriteriaBuilder().asc(from.get("lastName")));
-      return em.createQuery(c).getResultList();
+      CriteriaBuilder cb = em.getCriteriaBuilder();      
+      CriteriaQuery<City> q = cb.createQuery(City.class);
+      //q.from(City.class);
+      
+      Root<City> r = q.from(City.class);
+      q.select(r);
+      q.orderBy(cb.desc(r.get("counter")));
+      
+      return em.createQuery(q).getResultList();
    }
 }

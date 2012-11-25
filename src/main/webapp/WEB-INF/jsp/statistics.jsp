@@ -28,91 +28,24 @@
             
             <a href="/whether/" class="btn btn-primary">Home</a>
             
-            <c:if test="${!empty dataList}">
-               <h5>Weather</h5>
-                        
-               <c:forEach var="weatherData" items="${dataList}" varStatus="counter">
-                  <c:choose>
-                     <c:when test="${counter.first}">
-                        <table class="table table-bordered table-striped">
-                           <thead>
-                              <tr>
-                                 <th style="width: 50%;">Current conditions</th>
-                                 <th style="width: 50%;">&nbsp;</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>Pressure</td>
-                                 <td><c:out value="${weatherData.pressure}"/></td>
-                              </tr>
-                              <tr>
-                                 <td>Temperature (C)</td>
-                                 <td><c:out value="${weatherData.tempC}"/></td>
-                              </tr>
-                              <tr>
-                                 <td>Temperature (F)</td>
-                                 <td><c:out value="${weatherData.tempF}"/></td>
-                              </tr>                              
-                              <tr>
-                                 <td>Visibility</td>
-                                 <td><c:out value="${weatherData.visibility}"/></td>
-                              </tr>                              
-                              <tr>
-                                 <td>Humidity</td>
-                                 <td><c:out value="${weatherData.humidity}"/></td>
-                              </tr>                              
-                              <tr>
-                                 <td>Description</td>
-                                 <td><font color="#FF0000"><c:out value="${weatherData.weatherDesc}"/></font></td>
-                              </tr>                                                                                          
-                           </tbody>
-                        </table>                        
-                     </c:when>
-                     <c:otherwise>
-                        <table class="table table-bordered table-striped">
-                           <thead>
-                              <tr>
-                                 <th style="width: 50%;">Date</th>
-                                 <th style="width: 50%;"><c:out value="${weatherData.date}"/></th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>Temperature min. (C)</td>
-                                 <td><c:out value="${weatherData.tempMinC}"/></td>
-                              </tr>
-                              <tr>
-                                 <td>Temperature max. (C)</td>
-                                 <td><c:out value="${weatherData.tempMaxC}"/></td>
-                              </tr>                              
-                              <tr>
-                                 <td>Temperature min. (F)</td>
-                                 <td><c:out value="${weatherData.tempMinF}"/></td>
-                              </tr>
-                              <tr>
-                                 <td>Temperature max. (F)</td>
-                                 <td><c:out value="${weatherData.tempMaxF}"/></td>
-                              </tr>                              
-                              <tr>
-                                 <td>Wind speed (Kmph)</td>
-                                 <td><c:out value="${weatherData.windspeedKmph}"/></td>
-                              </tr>
-                              <tr>
-                                 <td>Wind speed (Mph)</td>
-                                 <td><c:out value="${weatherData.windspeedMiles}"/></td>
-                              </tr>                                                                                          
-                              <tr>
-                                 <td>Description</td>
-                                 <td><font color="#FF0000"><c:out value="${weatherData.weatherDesc}"/></font></td>
-                              </tr>                                                                                          
-                           </tbody>
-                        </table>
-                     </c:otherwise>
-                  </c:choose>
-               </c:forEach>               
-            </c:if>
-            
+            <c:if test="${!empty citiesList}">
+               <table class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                        <th style="width: 50%;">City</th>
+                        <th style="width: 50%;">Hits</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <c:forEach var="city" items="${citiesList}">                  
+                        <tr>
+                           <td><c:out value="${city.name}"/></td>
+                           <td><c:out value="${city.counter}"/></td>
+                        </tr>
+                     </c:forEach>
+                  </tbody>
+               </table>                                                                                
+            </c:if>   
          </div>
       </div>
    </div>
